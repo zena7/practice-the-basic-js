@@ -85,4 +85,54 @@ export class LinkedList {
 
     return deletedNode;
   }
+
+  insertAt(index, value) {
+    const newNode = new LinkedListNode(value);
+
+    if (index < 0) {
+      throw new RangeError("You entered a negative index value for insertion");
+    }
+
+    if (this.size < index) {
+      throw new RangeError(
+        "Index should be less than or equal to the list length."
+      );
+    }
+
+    if (this.head === null || index === 0) {
+      return this.prepend(value);
+    }
+
+    let current = this.head;
+    let count = 0;
+
+    while (current) {
+      if (++count === index) {
+        newNode.next = current.next;
+        current.next = newNode;
+      }
+
+      current = current.next;
+    }
+    this.size += 1;
+
+    return this;
+  }
+
+  find(value) {
+    // if (this.head.data === value) {
+    //   return this.head;
+    // }
+
+    let current = this.head;
+    while (current) {
+      if (current.data === value) {
+        return current;
+      }
+
+      current = current.next;
+    }
+
+    return null;
+  }
 }
